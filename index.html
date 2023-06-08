@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="script.js" defer></script>
+    <style>
+      section {
+        display: grid;
+        grid-template-rows: repeat(3, 50px);
+        grid-template-columns: repeat(3, 50px);
+      }
+
+      div {
+        border: 1px solid gray;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <section>
+      <div data-id="1"></div>
+      <div data-id="2"></div>
+      <div data-id="3"></div>
+      <div data-id="4"></div>
+      <div data-id="5"></div>
+      <div data-id="6"></div>
+      <div data-id="7"></div>
+      <div data-id="8"></div>
+      <div data-id="9"></div>
+    </section>
+    <h3>X turn</h3>
+    <button>Repeat?</button>
+  </body>
+</html>
