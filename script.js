@@ -55,8 +55,6 @@ function checkCells() {
       })
       .join(" ");
 
-    console.log(`winNums: ${winNums}, currentNums: ${currentNums}`);
-
     if (winNums === currentNums) {
       isWin = true;
     }
@@ -66,15 +64,27 @@ function checkCells() {
 }
 
 function sortStrArray(array) {
-  return array.map((winNums) => {
-    return winNums.sort((a, b) => a.localeCompare(b));
+  return array.map((winNums, _, arr) => {
+    if (Array.isArray(winNums)) {
+      return winNums.sort((a, b) => a.localeCompare(b));
+    } else {
+      return arr.sort((a, b) => {
+        if (!a || !b) {
+          return 0;
+        } else {
+          return a.localeCompare(b);
+        }
+      });
+    }
   });
 }
 
 function repeatGame() {
   cells.forEach((element) => (element.textContent = ""));
   cells.forEach((element) => element.addEventListener("click", handlerOnClick));
-  Object.values(choices).map((el) => (el = []));
+  for (let key of Object.keys(choices)) {
+    choices[key] = [];
+  }
   currentStep = "X";
   title.textContent = `${currentStep} turn`;
 }
