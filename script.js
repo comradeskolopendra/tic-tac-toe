@@ -1,14 +1,14 @@
 let currentStep = "X";
-const wins = [
+let wins = sortStrArray([
   ["1", "2", "3"],
   ["4", "5", "6"],
   ["7", "8", "9"],
   ["1", "5", "9"],
   ["3", "5", "7"],
   ["1", "4", "7"],
-  ["2", "5", "8"],
+  ["5", "2", "8"],
   ["3", "6", "9"],
-];
+]);
 const choices = {
   X: [],
   O: [],
@@ -21,7 +21,7 @@ repeat.addEventListener("click", repeatGame);
 cells.forEach((element) => element.addEventListener("click", handlerOnClick));
 
 function changePlayer() {
-  return currentStep === "X" ? "O" : "X";
+  currentStep = currentStep === "X" ? "O" : "X";
 }
 
 function handlerOnClick(event) {
@@ -35,7 +35,7 @@ function handlerOnClick(event) {
       element.removeEventListener("click", handlerOnClick)
     );
   } else {
-    currentStep = changePlayer();
+    changePlayer();
     title.textContent = `${currentStep} turn`;
   }
 }
@@ -45,7 +45,17 @@ function checkCells() {
 
   wins.forEach((element) => {
     let winNums = element.join(" ");
-    let currentNums = choices[currentStep].join(" ");
+    let currentNums = choices[currentStep]
+      .sort((a, b) => {
+        if (!a || !b) {
+          return 0;
+        } else {
+          return a.localeCompare(b);
+        }
+      })
+      .join(" ");
+
+    console.log(`winNums: ${winNums}, currentNums: ${currentNums}`);
 
     if (winNums === currentNums) {
       isWin = true;
@@ -53,6 +63,12 @@ function checkCells() {
   });
 
   return isWin;
+}
+
+function sortStrArray(array) {
+  return array.map((winNums) => {
+    return winNums.sort((a, b) => a.localeCompare(b));
+  });
 }
 
 function repeatGame() {
